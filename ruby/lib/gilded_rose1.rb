@@ -6,16 +6,23 @@ class GildedRose
 
   def update_quality()
     @items.each do |item|
-      if item.sell_in < 0 && item.quality > 1
+      if item.sell_in < 0 && item.name != 'Sulfuras, Hand of Ragnaros'
         item.quality -= 2
       end
 
       if item.name == 'Aged Brie'
         item.quality += 1 unless item.quality == 50
       end
+
+      if item.name == 'Backstage passes to a TAFKAL80ETC concert'
+        if item.sell_in < 11
+          item.quality += 2
+        else
+        item.quality += 1
+        end
+      end
     end
   end
-
 end
 
 
