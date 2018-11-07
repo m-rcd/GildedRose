@@ -27,18 +27,20 @@ describe GildedRose do
         GildedRose.new.update_quality(item)
         expect(item.quality).to eq(5)
       end
+
+      it "can't increase more than 50" do
+        item = Item.new("Aged Brie", 3, 50)
+        GildedRose.new.update_quality(item)
+        expect(item.quality).to eq(50)
+      end
     end
 
-    it "can't increase more than 50" do
-      item = Item.new("Aged Brie", 3, 50)
-      GildedRose.new.update_quality(item)
-      expect(item.quality).to eq(50)
-    end
-
-    it 'cannot decrease in quality if name is sulfuras' do
-      item = Item.new("Sulfuras, Hand of Ragnaros", -1, 80)
-      GildedRose.new.update_quality(item)
-      expect(item.quality).to eq(80)
+    context 'Sulfuras' do
+      it 'cannot decrease in quality if name is sulfuras' do
+        item = Item.new("Sulfuras, Hand of Ragnaros", -1, 80)
+        GildedRose.new.update_quality(item)
+        expect(item.quality).to eq(80)
+      end
     end
 
     context 'Backstage passes' do
