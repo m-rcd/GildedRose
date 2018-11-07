@@ -1,4 +1,4 @@
-require './lib/gilded_rose'
+# require './lib/gilded_rose'
 require './lib/gilded_rose1'
 
 describe GildedRose do
@@ -15,5 +15,20 @@ describe GildedRose do
       GildedRose.new(items).update_quality()
       expect(items[0].quality).to eq 0
     end
+
+    context 'Aged Brie' do
+      it 'increases the older it gets' do
+        items = [Item.new("Aged Brie", 3, 4)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].quality).to eq(5)
+      end
+
+      it "can't increase more than 50" do
+        items = [Item.new("Aged Brie", 3, 50)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].quality).to eq(50)
+      end
+    end
+
   end
 end
