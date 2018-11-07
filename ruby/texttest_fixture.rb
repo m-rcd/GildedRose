@@ -1,6 +1,6 @@
 #!/usr/bin/ruby -w
 
-require File.join(File.dirname(__FILE__), 'gilded_rose')
+require File.join(File.dirname(__FILE__), './lib/gilded_rose')
 
 puts "OMGHAI!"
 items = [
@@ -27,7 +27,8 @@ gilded_rose = GildedRose.new items
   puts "name, sellIn, quality"
   items.each do |item|
     puts item
+    gilded_rose.update_sell_in(item)
+    gilded_rose.update_quality(item)
   end
   puts ""
-  gilded_rose.update_quality
 end
