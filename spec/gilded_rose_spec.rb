@@ -10,7 +10,7 @@ describe GildedRose do
       @quality = quality
     end
   end
-  
+
   describe "#update_quality" do
     context 'Regular item' do
       it 'cannot go below 0' do
@@ -47,6 +47,14 @@ describe GildedRose do
         item = MockItem.new("Backstage passes to a TAFKAL80ETC concert", 3, 50)
         gildedRose.update_quality(item)
         expect(item.quality).to eq(50)
+      end
+    end
+
+    context 'Conjured item' do
+      it 'can update quality' do
+        item = MockItem.new("Conjured Mana Cake", 0, 30)
+        gildedRose.update_quality(item)
+        expect(item.quality).to eq(28)
       end
     end
   end
@@ -102,6 +110,14 @@ describe GildedRose do
       item = MockItem.new("Sulfuras, Hand of Ragnaros", 0, 80)
       gildedRose.update_sell_in(item)
       expect(item.sell_in).to eq(0)
+    end
+  end
+
+  describe '#update_conjured_quality' do
+    it 'decreases quality by 2 everyday' do
+      item = MockItem.new("Conjured Mana Cake", 0, 30)
+      gildedRose.update_conjured_quality(item)
+      expect(item.quality).to eq(28)
     end
   end
 end

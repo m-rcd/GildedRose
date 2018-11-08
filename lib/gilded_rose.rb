@@ -2,9 +2,10 @@ class GildedRose
   MAX_quality = 50
 
   def update_quality(item)
-    update_backstage_quality(item) if backstage?(item) && item.quality < MAX_quality
-    update_regular_item_quality(item) if regular_item(item) && item.quality > 0
-    item.quality += 1 if aged_brie?(item) && item.quality < MAX_quality
+    update_backstage_quality(item) if backstage_quality_less_than_max?(item)
+    update_regular_item_quality(item) if regular_item_and_positive?(item)
+    item.quality += 1 if brie_and_less_than_max?(item)
+    update_conjured_quality(item) if conjured_item?(item)
   end
 
   def update_sell_in(item)
@@ -19,6 +20,10 @@ class GildedRose
     return item.quality = 0 if item.sell_in < 0
     return item.quality += 3 if item.sell_in < 6
     return item.sell_in < 11 ?  item.quality += 2 : item.quality += 1
+  end
+
+  def update_conjured_quality(item)
+    item.quality -= 2 if item.quality > 1
   end
 
   private
@@ -36,6 +41,22 @@ class GildedRose
   end
 
   def regular_item(item)
-    true if !sulfuras?(item) && !backstage?(item) && !aged_brie?(item)
+    true if !sulfuras?(item) && !backstage?(item) && !aged_brie?(item) && !conjured_item?(item)
+  end
+
+  def conjured_item?(item)
+    item.name == 'Conjured Mana Cake'
+  end
+
+  def backstage_quality_less_than_max?(item)
+    backstage?(item) && item.quality < MAX_quality
+  end
+
+  def regular_item_and_positive?(item)
+    regular_item(item) && item.quality > 0
+  end
+
+  def brie_and_less_than_max?(item)
+    aged_brie?(item) && item.quality < MAX_quality
   end
 end
