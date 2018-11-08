@@ -27,7 +27,8 @@ gilded_rose = GildedRose.new items
   puts "name, sellIn, quality"
   items.each do |item|
     puts item
+    gilded_rose.update_quality(item)
+    gilded_rose.update_sell_in(item)
   end
   puts ""
-  gilded_rose.update_quality
 end

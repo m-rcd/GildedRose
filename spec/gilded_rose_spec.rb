@@ -23,6 +23,12 @@ describe GildedRose do
         gildedRose.update_quality(item)
         expect(item.quality).to eq(1)
       end
+
+      it 'cannot go below 0' do
+        item = MockItem.new("foo", 3, 0)
+        gildedRose.update_quality(item)
+        expect(item.quality).to eq(0)
+      end
     end
 
     context 'Aged Brie' do
@@ -78,6 +84,7 @@ describe GildedRose do
         expect(item.quality).to eq(50)
       end
     end
+
   end
 
   describe '#update_sell_in' do
