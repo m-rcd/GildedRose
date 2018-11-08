@@ -10,20 +10,9 @@ describe GildedRose do
       @quality = quality
     end
   end
+  
   describe "#update_quality" do
     context 'Regular item' do
-      it "degrades twice as fast if sell_in date has passed" do
-        item = MockItem.new("foo", -1, 2)
-        gildedRose.update_quality(item)
-        expect(item.quality).to eq 0
-      end
-
-      it 'degrades by 1 as it gets older' do
-        item = MockItem.new("foo", 3, 2)
-        gildedRose.update_quality(item)
-        expect(item.quality).to eq(1)
-      end
-
       it 'cannot go below 0' do
         item = MockItem.new("foo", 3, 0)
         gildedRose.update_quality(item)
@@ -86,7 +75,20 @@ describe GildedRose do
       gildedRose.update_backstage_quality(item)
       expect(item.quality).to eq(6)
     end
+  end
 
+  describe '#update_regular_item_quality' do
+    it "degrades twice as fast if sell_in date has passed" do
+      item = MockItem.new("foo", -1, 2)
+      gildedRose.update_regular_item_quality(item)
+      expect(item.quality).to eq 0
+    end
+
+    it 'degrades by 1 as it gets older' do
+      item = MockItem.new("foo", 3, 2)
+      gildedRose.update_regular_item_quality(item)
+      expect(item.quality).to eq(1)
+    end
   end
 
   describe '#update_sell_in' do
