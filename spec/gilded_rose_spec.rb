@@ -54,35 +54,37 @@ describe GildedRose do
     end
 
     context 'Backstage passes' do
-      it 'increases the older it gets' do
-        item = MockItem.new("Backstage passes to a TAFKAL80ETC concert", 16, 4)
-        gildedRose.update_quality(item)
-        expect(item.quality).to eq(5)
-      end
-
-      it 'increases by 2 if sell_in < 11' do
-        item = MockItem.new("Backstage passes to a TAFKAL80ETC concert", 9, 4)
-        gildedRose.update_quality(item)
-        expect(item.quality).to eq(6)
-      end
-
-      it 'increases by 3 if sell_in < 6' do
-        item = MockItem.new("Backstage passes to a TAFKAL80ETC concert", 4, 4)
-        gildedRose.update_quality(item)
-        expect(item.quality).to eq(7)
-      end
-
-      it 'goes down to 0 if sellin < 0' do
-        item = MockItem.new("Backstage passes to a TAFKAL80ETC concert", -1, 4)
-        gildedRose.update_quality(item)
-        expect(item.quality).to eq(0)
-      end
-
       it "can't increase more than 50" do
         item = MockItem.new("Backstage passes to a TAFKAL80ETC concert", 3, 50)
         gildedRose.update_quality(item)
         expect(item.quality).to eq(50)
       end
+    end
+  end
+
+  describe '#update_backstage_quality' do
+    it 'increases the older it gets' do
+      item = MockItem.new("Backstage passes to a TAFKAL80ETC concert", 16, 4)
+      gildedRose.update_backstage_quality(item)
+      expect(item.quality).to eq(5)
+    end
+
+    it 'sets item quality to 0 if sellin < 0' do
+      item = MockItem.new("Backstage passes to a TAFKAL80ETC concert", -1, 4)
+      gildedRose.update_backstage_quality(item)
+      expect(item.quality).to eq(0)
+    end
+
+    it 'increases by 3 if sell_in < 6' do
+      item = MockItem.new("Backstage passes to a TAFKAL80ETC concert", 4, 4)
+      gildedRose.update_backstage_quality(item)
+      expect(item.quality).to eq(7)
+    end
+
+    it 'increases by 2 if sell_in < 11' do
+      item = MockItem.new("Backstage passes to a TAFKAL80ETC concert", 9, 4)
+      gildedRose.update_backstage_quality(item)
+      expect(item.quality).to eq(6)
     end
 
   end

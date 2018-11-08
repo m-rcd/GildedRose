@@ -14,7 +14,7 @@ class GildedRose
   end
 
   def update_sell_in(item)
-    item.sell_in -= 1 if sulfuras?(item)
+    item.sell_in -= 1 if !sulfuras?(item)
   end
 
   def update_backstage_quality(item)
