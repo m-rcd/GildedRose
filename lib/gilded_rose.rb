@@ -1,5 +1,5 @@
 class GildedRose
-  MAX_quality = 50
+  MAX_QUALITY = 50
 
   def update_quality(item)
     update_backstage_quality(item) if backstage_quality_less_than_max?(item)
@@ -49,7 +49,7 @@ class GildedRose
   end
 
   def backstage_quality_less_than_max?(item)
-    backstage?(item) && item.quality < MAX_quality
+    backstage?(item) && item.quality < MAX_QUALITY
   end
 
   def regular_item_and_positive?(item)
@@ -57,6 +57,6 @@ class GildedRose
   end
 
   def brie_and_less_than_max?(item)
-    aged_brie?(item) && item.quality < MAX_quality
+    aged_brie?(item) && item.quality < MAX_QUALITY
   end
 end
