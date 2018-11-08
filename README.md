@@ -1,49 +1,59 @@
 # Gilded Rose Refactoring Kata
 
-This Kata was originally created by Terry Hughes (http://twitter.com/TerryHughes). It is already on GitHub [here](https://github.com/NotMyself/GildedRose). See also [Bobby Johnson's description of the kata](http://iamnotmyself.com/2011/02/13/refactor-this-the-gilded-rose-kata/).
+[Motivation](#motivation) | [Build status](#build-status) | [Technologies](#technologies) | [Requirements](#requirements) | [Running the App](#running-the-app) | [Running tests](#running-tests) | [Approach](#approach) | [Contributing](#contributing)
 
-I translated the original C# into a few other languages, (with a little help from my friends!), and slightly changed the starting position. This means I've actually done a small amount of refactoring already compared with the original form of the kata, and made it easier to get going with writing tests by giving you one failing unit test to start with. I also added test fixtures for Text-Based approval testing with TextTest (see [the TextTests](https://github.com/emilybache/GildedRose-Refactoring-Kata/tree/master/texttests))
+---
+This project's purpose was to refactor ["GildedRose Kata"](https://github.com/emilybache/GildedRose-Refactoring-Kata).
+##  <a name="motivation">**Motivation**</a>
+This project was created for a technical test challenge at Makers Academy.
 
-As Bobby Johnson points out in his article ["Why Most Solutions to Gilded Rose Miss The Bigger Picture"](http://iamnotmyself.com/2012/12/07/why-most-solutions-to-gilded-rose-miss-the-bigger-picture), it'll actually give you
-better practice at handling a legacy code situation if you do this Kata in the original C#. However, I think this kata
-is also really useful for practicing writing good tests using different frameworks and approaches, and the small changes I've made help with that. I think it's also interesting to compare what the refactored code and tests look like in different programming languages.
+##  <a name="build-status">**Build Status**</a>
+[![Build Status](https://travis-ci.org/m-rcd/GildedRose.svg?branch=master)](https://travis-ci.org/m-rcd/GildedRose)
 
-I wrote this article ["Writing Good Tests for the Gilded Rose Kata"](http://coding-is-like-cooking.info/2013/03/writing-good-tests-for-the-gilded-rose-kata/) about how you could use this kata in a [coding dojo](https://leanpub.com/codingdojohandbook).
+##  <a name="technologies">**Technologies**</a>
 
-## How to use this Kata
+- Ruby
+- RSpec
+- Rubocop
+- Simplecov
 
-The simplest way is to just clone the code and start hacking away improving the design. You'll want to look at the ["Gilded Rose Requirements"](https://github.com/emilybache/GildedRose-Refactoring-Kata/tree/master/GildedRoseRequirements.txt) which explains what the code is for. I strongly advise you that you'll also need some tests if you want to make sure you don't break the code while you refactor.
+##  <a name="requirements">**Requirements**</a>
 
-You could write some unit tests yourself, using the requirements to identify suitable test cases. I've provided a failing unit test in a popular test framework as a starting point for most languages.
+ The requirements could be found [here](https://github.com/m-rcd/GildedRose/blob/master/GildedRoseRequirements.txt).
 
-Alternatively, use the "Text-Based" tests provided in this repository. (Read more about that in the next section)
+##  <a name="running-the-app">**Running the app**</a>
 
-Whichever testing approach you choose, the idea of the exercise is to do some deliberate practice, and improve your skills at designing test cases and refactoring. The idea is not to re-write the code from scratch, but rather to practice designing tests, taking small steps, running the tests often, and incrementally improving the design. 
+- Clone this repository:
+   `git clone https://github.com/m-rcd/GildedRose/`
 
-## Text-Based Approval Testing
+- Go into the repository: `cd GildedRose`
 
-This is a testing approach which is very useful when refactoring legacy code. Before you change the code, you run it, and gather the output of the code as a plain text file. You review the text, and if it correctly describes the behaviour as you understand it, you can "approve" it, and save it as a "Golden Master". Then after you change the code, you run it again, and compare the new output against the Golden Master. Any differences, and the test fails.
+- Run `bundle install`
 
-It's basically the same idea as "assertEquals(expected, actual)" in a unit test, except the text you are comparing is typically much longer, and the "expected" value is saved from actual output, rather than being defined in advance.
+- run `ruby texttest_fixture.rb`
 
-Typically a piece of legacy code may not produce suitable textual output from the start, so you may need to modify it before you can write your first text-based approval test. That could involve inserting log statements into the code, or just writing a "main" method that executes the code and prints out what the result is afterwards. It's this latter approach we are using here to test GildedRose.
 
-The Text-Based tests in this repository are designed to be used with the tool "TextTest" (http://texttest.org). This tool helps you to organize and run text-based tests. There is more information in the README file in the "texttests" subdirectory.
+##  <a name="running-tests">**Running tests**</a>
 
-## Get going quickly using Cyber-Dojo
+Run `rspec` in your terminal
 
-I've also set this kata up on [cyber-dojo](http://cyber-dojo.org) for several languages, so you can get going really quickly:
+![test](test.png)
 
-- [JUnit, Java](http://cyber-dojo.org/forker/fork/751DD02C4C?avatar=snake&tag=8)
-- [C#](http://cyber-dojo.org/forker/fork/5C5AC766B0?avatar=koala&tag=3)
-- [C++](http://cyber-dojo.org/forker/fork/AA86ECBCC9?avatar=rhino&tag=7)
-- [Ruby](http://cyber-dojo.org/forker/fork/A8943EAF92?avatar=hippo&tag=9)
-- [RSpec, Ruby](http://cyber-dojo.org/forker/fork/8E58B0AD16?avatar=raccoon&tag=3)
-- [Python](http://cyber-dojo.org/forker/fork/297041AA7A?avatar=lion&tag=4)
-- [Cucumber, Java](http://cyber-dojo.org/forker/fork/0F82D4BA89?avatar=gorilla&tag=48) - for this one I've also written some step definitions for you
+##  <a name="approach">**Approach**</a>
 
-## Better Code Hub
+- I started by adding tests to make sure that I don't break the code.
 
-I analysed this repo according to the clean code standards on [Better Code Hub](https://bettercodehub.com) just to get an independent opinion of how bad the code is. Perhaps unsurprisingly, the compliance score is low!
+- I moved item class to its own file
 
-[![BCH compliance](https://bettercodehub.com/edge/badge/emilybache/GildedRose-Refactoring-Kata?branch=master)](https://bettercodehub.com/) 
+- I then started refactoring by using guard statements when possible, separating updating quality and updating sell in, creating private methods
+
+- I also implemented the new feature requested by the new supplier: conjured items degrades twice as fast as normal items
+
+##  <a name="contributing">**Contributing**</a>
+
+Pull Requests are always welcome.
+
+When you edit the code, please run bundle exec rspec to check all the tests pass.
+Also run the linter rubocop  before you git commit.
+
+Ensure the PR description clearly describes the problem and solution. It should include the relevant issue number, if applicable.
