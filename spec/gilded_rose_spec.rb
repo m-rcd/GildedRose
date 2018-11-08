@@ -56,6 +56,12 @@ describe GildedRose do
         gildedRose.update_quality(item)
         expect(item.quality).to eq(28)
       end
+
+      it 'cannot go below 0' do
+        item = MockItem.new("Conjured Mana Cake", 0, 1)
+        gildedRose.update_quality(item)
+        expect(item.quality).to eq(1)
+      end
     end
   end
 
